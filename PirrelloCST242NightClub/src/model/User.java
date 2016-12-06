@@ -32,5 +32,10 @@ public class User extends Login implements Observer{
 	public void update(Observable o, Object arg) {
 		//make a notification pop up for the advertisement
 	}
+	@Override
+	public String toString() {
+		return "User [email=" + email + ", name=" + name + ", toString()=" + super.toString() + "]";
+	}
+	
 	
 }

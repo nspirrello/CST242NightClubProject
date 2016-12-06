@@ -14,6 +14,7 @@ public class Manager extends Login{
 		return nightClub;
 	}
 	public void setNightClub(Nightclub nightClub) {
+		
 		this.nightClub = nightClub;
 	}
 	public String getName() {
