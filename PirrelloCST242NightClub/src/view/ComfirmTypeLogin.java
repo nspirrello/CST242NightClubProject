@@ -7,18 +7,26 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import model.UserBag;
 
 public class ComfirmTypeLogin {
 	private Label selection;
 	private Button manager ;
 	private Button user;
 	Stage stage;
-	CreateLoginPane cLP;
-	public ComfirmTypeLogin(Stage stage){
+	LoginPane lP;
+	CreateLoginPane cLP = new CreateLoginPane();
+
+	
+	public ComfirmTypeLogin() {
+		super();
+	}
+	public ComfirmTypeLogin(Stage stage, LoginPane lP){
 		selection = new Label("Are you a User or a Manager");
 		user= new Button("User");
 		manager = new Button("Manager");
 		this.stage = stage;
+		this.lP = lP;
 	}
 	public void buildPane(){
 		
@@ -31,12 +39,12 @@ public class ComfirmTypeLogin {
 		
 		user.setOnAction(event -> {
 			//build the userLoginPage
-			cLP = new CreateLoginPane(stage);
+			cLP = new CreateLoginPane(stage,lP);
 			cLP.selectPane(stage, "u");;
 		});
 		manager.setOnAction(event -> {
 			//build the managerLoginPage
-			cLP = new CreateLoginPane(stage);
+			setcLP(new CreateLoginPane(stage,lP));
 			cLP.selectPane(stage,"m");
 		});
 		
@@ -51,5 +59,16 @@ public class ComfirmTypeLogin {
 	public Button getUser() {
 		return user;
 	}
+	
+	public void setcLP(CreateLoginPane cLP) {
+		this.cLP = cLP;
+	}
+	public CreateLoginPane getcLP() {
+		return cLP;
+	}
+	public LoginPane getlP() {
+		return lP;
+	}
+	
 	
 }

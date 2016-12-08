@@ -1,5 +1,8 @@
 package view;
 
+import controller.MyEventListener;
+import controller.MyEventObject;
+import controller.UserController;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -8,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import model.UserBag;
 
 public class CreateLoginPane {
 	private Button userAccept;
@@ -16,12 +20,19 @@ public class CreateLoginPane {
 	private Button managerCancel;
 	Stage stage;
 	LoginPane lP;
-	public CreateLoginPane(Stage stage){
+	UserPane uP;
+	
+	
+	public CreateLoginPane() {
+		super();
+	}
+	public CreateLoginPane(Stage stage, LoginPane lP){
 		userAccept = new Button("Accept");
 		managerAccept = new Button("Accept");
 		userCancel = new Button("Cancel");
 		managerCancel = new Button("Cancel");
 		this.stage = stage;
+		this.lP = lP;
 	}
 	public void selectPane(Stage stage, String selection){
 		if(selection.equals("u")){
@@ -40,8 +51,20 @@ public class CreateLoginPane {
 		TextField userField = new TextField();
 		TextField passField = new TextField();
 		
+		
 		userAccept.setOnAction(event -> {
 			//launch userGUI
+			String n = nameField.getText();
+			String e = emailField.getText();
+			String u = userField.getText();
+			String p = passField.getText();
+			lP.setUsersName(u);
+			System.out.println(lP.getUsersName());
+			MyEventObject ev = new MyEventObject(this,n,e,u,p);
+			if(lP.getMyEventListener() != null){
+				lP.getMyEventListener().confirmUserCreationButton(ev);
+			}
+			uP = new UserPane(stage,lP);
 		});
 		userCancel.setOnAction(event -> {
 			//go back to the login menu
@@ -75,7 +98,7 @@ public class CreateLoginPane {
 		});
 		managerCancel.setOnAction(event -> {
 			//go back to the login menu
-			lP = new LoginPane(stage);
+//			lP = new LoginPane(stage);
 			lP.buildLoginPane();
 		});
 		

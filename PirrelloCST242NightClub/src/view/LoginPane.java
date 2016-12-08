@@ -1,5 +1,6 @@
 package view;
 
+import controller.MyEventListener;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -10,12 +11,15 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import model.Login;
 
 public class LoginPane {	
 	private Button loginBttn;
 	private Button signBttn;
-	ComfirmTypeLogin cTL;
+	private String usersName;
+	ComfirmTypeLogin cTL = new ComfirmTypeLogin();
 	Stage stage;
+	MyEventListener myEventListener;
 	public LoginPane(Stage stage){
 		this.stage = stage;
 	}
@@ -27,7 +31,6 @@ public class LoginPane {
 		TextField passField = new TextField();
 		loginBttn = new Button("Login");
 		signBttn = new Button("Sign up");
-		
 		ImageView imv = new ImageView();
 		Image image = new Image("https://thumbs.dreamstime.com/t/neon-club-club-neon-sign-bright-attracts-attention-luminous-saying-53510286.jpg");
 		imv.setImage(image);
@@ -54,11 +57,12 @@ public class LoginPane {
 		
 		loginBttn.setOnAction(event -> {
 			//depending on if the login is type user or manage launch a different tab
+			
 		});
 		
 		signBttn.setOnAction(event -> {
 			//launch the create login page
-			cTL = new ComfirmTypeLogin(stage);
+			setcTL(new ComfirmTypeLogin(stage,this));;
 			cTL.buildPane();
 		});
 		
@@ -71,5 +75,35 @@ public class LoginPane {
 	public Button getSignBttn() {
 		return signBttn;
 	}
+
+	public ComfirmTypeLogin getcTL() {
+		return cTL;
+	}
+
+	public void setcTL(ComfirmTypeLogin cTL) {
+		this.cTL = cTL;
+	}
+
+	public MyEventListener getMyEventListener() {
+		return myEventListener;
+	}
+
+	public void setMyEventListener(MyEventListener myEventListener) {
+		this.myEventListener = myEventListener;
+	}
+
+	public String getUsersName() {
+		return usersName;
+	}
+
+	public void setUsersName(String usersName) {
+		this.usersName = usersName;
+	}
 	
+	
+
+	
+	
+	
+
 }

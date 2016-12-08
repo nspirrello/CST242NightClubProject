@@ -9,13 +9,13 @@ public class Nightclub extends Observable{
 	private int ticketPrice;
 	private Staff[] staff;
 	private Advertisment ad;
-	public Nightclub(String clubName, Address clubAddress, int numOfTables, int ticketPrice, Staff[] staff) {
+	public Nightclub(String clubName, Address clubAddress, int numOfTables, int ticketPrice) {
 		super();
 		this.clubName = clubName;
 		this.clubAddress = clubAddress;
 		this.numOfTables = numOfTables;
 		this.ticketPrice = ticketPrice;
-		this.staff = staff;
+//		this.staff = staff;
 	}
 	public String getClubName() {
 		return clubName;

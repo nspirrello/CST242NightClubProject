@@ -1,19 +1,28 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
 public class User extends Login implements Observer{
 	private String email;
 	private String name;
-	private Observable o;
-	
-	public User(String email, String name, String username, String password, Observable o) {
+	private ArrayList<Nightclub> following;
+	private Nightclub o;
+	public User(String email, String name, String username, String password) {
+		super(username,password);
+		this.email = email;
+		this.name = name;
+		following = new ArrayList<Nightclub>();
+		following.add(new Nightclub("Spirits",new Address("89","Birch St","11787","NY"),15,45));
+	}
+	public User(String email, String name, String username, String password, Nightclub o) {
 		super(username,password);
 		this.o = o;
 		this.email = email;
 		this.name = name;
 		o.addObserver(this);
+		following.add(o);
 	}
 	public String getEmail() {
 		return email;
@@ -28,6 +37,15 @@ public class User extends Login implements Observer{
 		this.name = name;
 	}
 	
+	public ArrayList<Nightclub> getFollowing() {
+		return following;
+	}
+	public void unfollow(Nightclub o){
+		if(following.contains(o)){
+			following.remove(o);
+			o.deleteObserver(this);
+		}
+	}
 	@Override
 	public void update(Observable o, Object arg) {
 		//make a notification pop up for the advertisement
