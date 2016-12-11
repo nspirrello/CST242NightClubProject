@@ -60,7 +60,7 @@ public class CreateLoginPane {
 			String p = passField.getText();
 			lP.setUsersName(u);
 			System.out.println(lP.getUsersName());
-			MyEventObject ev = new MyEventObject(this,n,e,u,p);
+			MyEventObject ev = new MyEventObject(this,u,p,n,e);
 			if(lP.getMyEventListener() != null){
 				lP.getMyEventListener().confirmUserCreationButton(ev);
 			}

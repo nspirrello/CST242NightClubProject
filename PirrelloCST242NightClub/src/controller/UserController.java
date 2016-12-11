@@ -28,10 +28,47 @@ public class UserController {
 					UserPane uP = ev.getPane();
 					ArrayList<Nightclub> nc = user.getFollowing();
 					for(int i = 0;i < nc.size();i++){
-						System.out.println(nc.get(i).getClubName() + "\n" + nc.get(i).getClubAddress() + "\nTicket Price: " + nc.get(i).getTicketPrice());
-						uP.fillNodes(nc.get(i).getClubName() + "\n" + nc.get(i).getClubAddress().toString() + "\nTicket Price: " + nc.get(i).getTicketPrice());
+						uP.fillNodes(nc.get(i).getClubName() + "\n" + nc.get(i).getClubAddress().toString() + "\nTicket Price: " + nc.get(i).getTicketPrice(),nc.get(i).getClubName());
 					}
 				}
+			}
+			
+			public void setMyAccount(MyEventObject ev){
+				UserPane uP = ev.getPane();
+//				uB.find(ev.getUsername()).setName(ev.getName());
+//				uB.find(ev.getUsername()).setEmail(ev.getEmail());
+//				uB.find(ev.getUsername()).setUsername(ev.getUsername());
+//				uB.find(ev.getUsername()).setPassword(ev.getPassword());
+				User user = uB.find(ev.getUsername());
+				uP.getEmailF().setText(user.getEmail());;
+				uP.setNameF(user.getName());
+				uP.setUsernameF(user.getUsername());
+				uP.setPasswordF(user.getPassword());
+			}
+			
+			public void editMyAccount(MyEventObject ev){
+				UserPane uP = ev.getPane();
+				System.out.println(uB.find(ev.getOldName()));
+				System.out.println(uP.getNameF().getText());
+				User user = uB.find(ev.getOldName());
+				user.setEmail(ev.getEmail());
+				user.setName(ev.getName());
+				user.setPassword(ev.getPassword());
+				user.setUsername(ev.getUsername());
+			}
+
+			@Override
+			public void passThroughInfo(MyEventObject ev) {
+				//for the ClubNodes removal from user's Following arraylist
+				User user = uB.find(ev.getUsername());
+				Nightclub nc = null;
+				ArrayList<Nightclub> ncal = user.getFollowing();
+				for(int i = 0;i < ncal.size();i++){
+					if(ncal.get(i).getClubName().equals(ev.getNightclub())){
+						nc = ncal.get(i);
+					}
+				}
+				user.getFollowing().remove(nc);
 			}
 			
 		});
