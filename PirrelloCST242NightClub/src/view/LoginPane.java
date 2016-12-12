@@ -1,6 +1,7 @@
 package view;
 
 import controller.MyEventListener;
+import controller.MyEventObject;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -11,7 +12,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import model.Login;
 
 public class LoginPane {	
 	private Button loginBttn;
@@ -19,6 +19,7 @@ public class LoginPane {
 	private String usersName;
 	ComfirmTypeLogin cTL = new ComfirmTypeLogin();
 	Stage stage;
+	UserPane uP;
 	MyEventListener myEventListener;
 	public LoginPane(Stage stage){
 		this.stage = stage;
@@ -57,7 +58,10 @@ public class LoginPane {
 		
 		loginBttn.setOnAction(event -> {
 			//depending on if the login is type user or manage launch a different tab
-			
+			MyEventObject ev = new MyEventObject(userField.getText(),passField.getText(),this);
+			if(myEventListener != null){
+				getMyEventListener().confirmLogin(ev);
+			}
 		});
 		
 		signBttn.setOnAction(event -> {
@@ -98,6 +102,18 @@ public class LoginPane {
 
 	public void setUsersName(String usersName) {
 		this.usersName = usersName;
+	}
+
+	public UserPane getuP() {
+		return uP;
+	}
+
+	public Stage getStage() {
+		return stage;
+	}
+
+	public void setuP(UserPane uP) {
+		this.uP = uP;
 	}
 	
 	

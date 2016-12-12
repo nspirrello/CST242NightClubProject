@@ -2,7 +2,8 @@ package controller;
 
 import java.util.EventObject;
 
-import model.User;
+import model.Nightclub;
+import view.ClubNodes;
 import view.UserPane;
 
 public class MyEventObject extends EventObject{
@@ -13,9 +14,17 @@ public class MyEventObject extends EventObject{
 	private String oldName;
 	private UserPane pane;
 	private String nightclub;
+	private ClubNodes clubNode;
+	private Nightclub nc;
+	private String phone;
 	
 	public MyEventObject(Object source) {
 		super(source);
+	}
+	public MyEventObject(Object source, String nc, ClubNodes clubNode){
+		super(source);
+		this.nightclub = nc;
+		this.clubNode = clubNode;
 	}
 	public MyEventObject(Object source, String username, String password, String name, String email){
 		super(source);
@@ -28,6 +37,11 @@ public class MyEventObject extends EventObject{
 		super(source);
 		this.username = username;
 		this.pane = pane;
+	}
+	public MyEventObject(String username, String password, Object source){
+		super(source);
+		this.username = username;
+		this.password = password;
 	}
 	public MyEventObject(Object source, String username){
 		super(source);
@@ -47,7 +61,35 @@ public class MyEventObject extends EventObject{
 		this.oldName = oldName;
 		this.pane = pane;
 	}
+	public MyEventObject(Object source,UserPane uP, String username){
+		super(source);
+		this.pane = uP;
+		this.username = username;
+	}
+	public MyEventObject(Object source,UserPane uP, String username, String nightclub){
+		super(source);
+		this.pane = uP;
+		this.username = username;
+		this.nightclub = nightclub;
+	}
+	public MyEventObject(Object source, String name, String phone, String username, String password, Nightclub nc) {
+		super(source);
+		this.name = name;
+		this.phone = phone;
+		this.username = username;
+		this.password = password;
+		this.nc = nc;
+	}
 	
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	public Nightclub getNc() {
+		return nc;
+	}
 	public UserPane getPane() {
 		return pane;
 	}
@@ -80,6 +122,12 @@ public class MyEventObject extends EventObject{
 	}
 	public String getNightclub() {
 		return nightclub;
+	}
+	public ClubNodes getClubNode() {
+		return clubNode;
+	}
+	public void setClubNode(ClubNodes clubNode) {
+		this.clubNode = clubNode;
 	}
 	
 }

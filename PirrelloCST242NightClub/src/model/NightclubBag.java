@@ -38,4 +38,11 @@ public class NightclubBag {
 		return null;
 		
 	}
+	public int getnElems() {
+		return nElems;
+	}
+	public Nightclub[] getNightclubBag() {
+		return nightclubBag;
+	}
+	
 }

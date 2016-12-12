@@ -26,11 +26,13 @@ public class UserPane {
 	private Menu notifications;
 	private MenuItem myAccount;
 	private Menu account;
+	private MenuItem logout;
 	
 	private ScrollPane middlePane;
 	private BorderPane paneCollection;
 	
 	private VBox contentHolder;
+	private VBox searchHolder;
 	Stage stage;
 	LoginPane lP;
 	
@@ -47,6 +49,7 @@ public class UserPane {
 	public UserPane(Stage stage, LoginPane lP){
 		this.stage = stage;
 		contentHolder = new VBox(5);
+		searchHolder = new VBox(5);
 		middlePane = new ScrollPane();
 		paneCollection = new BorderPane();
 		middlePane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
@@ -67,9 +70,10 @@ public class UserPane {
 		notifications = new Menu("Notifications");
 		myAccount = new MenuItem("User Settings");
 		account = new Menu("My Account");
+		logout = new MenuItem("Logout");
 		
 		mainMenu.getItems().addAll(clubSubMenu);
-		account.getItems().addAll(invoice,myAccount);
+		account.getItems().addAll(invoice,myAccount,logout);
 		clubSubMenu.getItems().addAll(searchClubs, myClubs);
 		menu.getMenus().addAll(mainMenu,notifications,account);
 		
@@ -80,6 +84,17 @@ public class UserPane {
 		
 		myAccount.setOnAction(event -> {
 			buildMyAccount(paneCollection);
+		});
+		
+		logout.setOnAction(event -> {
+			//need to fix
+			lP = new LoginPane(lP.getStage());
+			lP.buildLoginPane();
+		});
+		
+		searchClubs.setOnAction(event -> {
+			searchHolder.getChildren().removeAll(searchHolder.getChildren());
+			buildClubSearch(paneCollection);
 		});
 		
 		pane.setTop(menu);
@@ -97,7 +112,10 @@ public class UserPane {
 		
 	}
 	public void fillNodes(String text, String nightclub){
-		new ClubNodes(text,contentHolder,lP, nightclub);
+		new ClubNodes(text,contentHolder,lP, nightclub,this);
+	}
+	public void createNodes(String text, String nightclub){
+		new ClubNodes(text,searchHolder,lP,nightclub);
 	}
 	public void buildMyAccount(BorderPane pane){
 		
@@ -122,6 +140,17 @@ public class UserPane {
 		
 		pane.setCenter(vbox);
 		
+	}
+	
+	public void buildClubSearch(BorderPane pane){
+		MyEventObject ev = new MyEventObject(this,lP.getUsersName(),this);
+		if(lP.getMyEventListener() != null){
+			lP.getMyEventListener().clubSearchNode(ev);
+		}
+		
+		middlePane.setContent(searchHolder);
+		
+		pane.setCenter(middlePane);
 	}
 	
 	public void setNameF(String s) {
@@ -151,4 +180,8 @@ public class UserPane {
 	public TextField getPasswordF() {
 		return passwordF;
 	}
+	public ScrollPane getMiddlePane() {
+		return middlePane;
+	}
+	
 }

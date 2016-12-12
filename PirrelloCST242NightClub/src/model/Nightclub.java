@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Observable;
 
 public class Nightclub extends Observable{
@@ -7,15 +8,13 @@ public class Nightclub extends Observable{
 	private Address clubAddress;
 	private int numOfTables;
 	private int ticketPrice;
-	private Staff[] staff;
+	private ArrayList<Staff> staff = new ArrayList<Staff>();
 	private Advertisment ad;
-	public Nightclub(String clubName, Address clubAddress, int numOfTables, int ticketPrice) {
-		super();
+	public Nightclub(String clubName, Address address, int numOfTables, int ticketPrice) {
 		this.clubName = clubName;
-		this.clubAddress = clubAddress;
+		this.clubAddress = address;
 		this.numOfTables = numOfTables;
 		this.ticketPrice = ticketPrice;
-//		this.staff = staff;
 	}
 	public String getClubName() {
 		return clubName;
@@ -41,10 +40,10 @@ public class Nightclub extends Observable{
 	public void setTicketPrice(int ticketPrice) {
 		this.ticketPrice = ticketPrice;
 	}
-	public Staff[] getStaff() {
+	public ArrayList<Staff> getStaff() {
 		return staff;
 	}
-	public void setStaff(Staff[] staff) {
+	public void setStaff(ArrayList<Staff> staff) {
 		this.staff = staff;
 	}
 	public Advertisment getAd() {

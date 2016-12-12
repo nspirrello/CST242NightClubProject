@@ -17,11 +17,19 @@ public class UserBag {
 	}
 	public User find(String username){
 		for(int i = 0;i < nElems;i++){
-			if(username.equals(userBag[i].getUsername())){
+			if(userBag[i].getUsername().equals(username)){
 				return userBag[i];
 			}
 		}
 		return null;
+	}
+	public boolean correctLogin(String username,String password){
+		for(int i = 0;i < nElems;i++){
+			if(userBag[i].getUsername().equals(username) && userBag[i].getPassword().equals(password)){
+				return true;
+			}
+		}
+		return false;
 	}
 	public User delete(String username){
 		for(int i = 0;i < nElems;i++){

@@ -4,8 +4,8 @@ public class Manager extends Login{
 	private Nightclub nightClub;
 	private String name;
 	private String phoneNumber;
-	public Manager(Nightclub nightClub, String name, String phoneNumber) {
-		super();
+	public Manager(Nightclub nightClub, String name, String phoneNumber,String username,String password) {
+		super(username,password);
 		this.nightClub = nightClub;
 		this.name = name;
 		this.phoneNumber = phoneNumber;

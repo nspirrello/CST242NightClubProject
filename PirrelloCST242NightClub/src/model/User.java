@@ -54,7 +54,7 @@ public class User extends Login implements Observer{
 	}
 	@Override
 	public String toString() {
-		return "User [email=" + email + ", name=" + name + ", toString()=" + super.toString() + "]";
+		return "User [email=" + email + ", name=" + name + ", login=" + super.toString() + "]";
 	}
 	
 	
