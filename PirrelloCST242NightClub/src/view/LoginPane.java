@@ -116,10 +116,5 @@ public class LoginPane {
 		this.uP = uP;
 	}
 	
-	
-
-	
-	
-	
 
 }

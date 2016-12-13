@@ -2,6 +2,7 @@ package controller;
 
 import java.util.EventObject;
 
+import javafx.scene.control.TextArea;
 import model.Nightclub;
 import view.ClubNodes;
 import view.UserPane;
@@ -25,6 +26,11 @@ public class MyEventObject extends EventObject{
 		super(source);
 		this.nightclub = nc;
 		this.clubNode = clubNode;
+	}
+	public MyEventObject(String nightclub ,Object source, String username){
+		super(source);
+		this.nightclub = nightclub;
+		this.username = username;
 	}
 	public MyEventObject(Object source, String username, String password, String name, String email){
 		super(source);

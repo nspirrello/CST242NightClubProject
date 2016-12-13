@@ -82,7 +82,6 @@ public class CreateLoginPane {
 		});
 		userCancel.setOnAction(event -> {
 			//go back to the login menu
-			lP = new LoginPane(stage);
 			lP.buildLoginPane();
 		});
 		
@@ -165,7 +164,6 @@ public class CreateLoginPane {
 			
 		});
 		managerCancel.setOnAction(event -> {
-			lP = new LoginPane(stage);
 			lP.buildLoginPane();
 		});
 		

@@ -9,11 +9,13 @@ public class User extends Login implements Observer{
 	private String name;
 	private ArrayList<Nightclub> following;
 	private Nightclub o;
+	private UserInvoice userI;
 	public User(String email, String name, String username, String password) {
 		super(username,password);
 		this.email = email;
 		this.name = name;
 		following = new ArrayList<Nightclub>();
+		userI = new UserInvoice();
 		following.add(new Nightclub("Spirits1",new Address("89","Birch St","11787","NY"),15,45));
 		following.add(new Nightclub("Spirits2",new Address("89","Birch St","11787","NY"),15,45));
 		following.add(new Nightclub("Spirits3",new Address("89","Birch St","11787","NY"),15,45));
@@ -25,6 +27,9 @@ public class User extends Login implements Observer{
 		this.name = name;
 		o.addObserver(this);
 		following.add(o);
+	}
+	public void setToNotify(Nightclub nc){
+		nc.addObserver(this);
 	}
 	public String getEmail() {
 		return email;
@@ -47,6 +52,13 @@ public class User extends Login implements Observer{
 			following.remove(o);
 			o.deleteObserver(this);
 		}
+	}
+	public void buyTicket(String clubName, int price, String purchaser){
+		userI.add(new Ticket(clubName,price,purchaser));
+	}
+	
+	public UserInvoice getUserI() {
+		return userI;
 	}
 	@Override
 	public void update(Observable o, Object arg) {

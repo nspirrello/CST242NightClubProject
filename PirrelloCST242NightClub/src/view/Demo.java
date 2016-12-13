@@ -25,6 +25,7 @@ public class Demo extends Application{
 		ncB.add(new Nightclub("Spirits2",new Address("89","Birch St","11787","NY"),15,45));
 		ncB.add(new Nightclub("Spirits3",new Address("89","Birch St","11787","NY"),15,45));
 		ncB.add(new Nightclub("Spirits4",new Address("89","Birch St","11787","NY"),15,45));
+		ncB.add(new Nightclub("Spirits5",new Address("89","Birch St","11787","NY"),15,45));
 		User user = new User("nickpirr@aol.com","Nicholas","Dangerly","test123");
 		lB.add(user);
 		

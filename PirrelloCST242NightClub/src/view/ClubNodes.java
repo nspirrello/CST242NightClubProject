@@ -84,6 +84,12 @@ public class ClubNodes {
 				lP.getMyEventListener().fillTheClubNode(ev);
 			}
 			ticketBttn.setOnAction(event1 -> {
+				//needs club name, price of ticket, and user's username
+				
+				MyEventObject ev1 = new MyEventObject(ncName,this,lP.getUsersName());
+				if(lP.getMyEventListener() != null){
+					lP.getMyEventListener().passTicket(ev1);
+				}
 				
 			});
 		});
@@ -105,12 +111,6 @@ public class ClubNodes {
 		this.ncName = ncName;
 		follow = new Button("Follow");
 //		implement follow using this
-		follow.setOnAction(event -> {
-			MyEventObject ev = new MyEventObject(this,uP,lP.getUsersName(),ncName);
-			if(lP.getMyEventListener() != null){
-				lP.getMyEventListener().passFollowThrough(ev);
-			}
-		});
 		
 		HBox paneNode = new HBox(15);
 		paneNode.setAlignment(Pos.CENTER);
@@ -119,6 +119,14 @@ public class ClubNodes {
 		paneNode.getChildren().addAll(info,follow);
 		vbox.getChildren().add(paneNode);
 		
+		follow.setOnAction(event -> {
+			vbox.getChildren().remove(paneNode);
+			MyEventObject ev = new MyEventObject(this,uP,lP.getUsersName(),ncName);
+			if(lP.getMyEventListener() != null){
+				lP.getMyEventListener().passFollowThrough(ev);
+			}
+			
+		});
 		
 	}
 	public String toString(){

@@ -13,4 +13,7 @@ public interface MyEventListener extends EventListener{
 	public void createAManager(MyEventObject myEventObject);
 	public void clubSearchNode(MyEventObject myEventObject);
 	public void passFollowThrough(MyEventObject myEventObject);
+	public void passTicket(MyEventObject myEventObject);
+	public void createInvoice(MyEventObject myEventObject);
+	public void clearInvoice(MyEventObject myEventObject);
 }

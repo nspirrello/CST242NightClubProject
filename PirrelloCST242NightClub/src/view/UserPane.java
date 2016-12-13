@@ -9,8 +9,10 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 /*
@@ -45,6 +47,8 @@ public class UserPane {
 	Label password = new Label("Password:");
 	TextField passwordF = new TextField();
 	Button update = new Button("Update");
+	
+	TextArea invoiceArea = new TextArea();
 	
 	public UserPane(Stage stage, LoginPane lP){
 		this.stage = stage;
@@ -87,14 +91,17 @@ public class UserPane {
 		});
 		
 		logout.setOnAction(event -> {
-			//need to fix
-			lP = new LoginPane(lP.getStage());
+			lP.setuP(null);
 			lP.buildLoginPane();
 		});
 		
 		searchClubs.setOnAction(event -> {
 			searchHolder.getChildren().removeAll(searchHolder.getChildren());
 			buildClubSearch(paneCollection);
+		});
+		
+		invoice.setOnAction(event -> {
+			buildInvoice(paneCollection);
 		});
 		
 		pane.setTop(menu);
@@ -109,6 +116,34 @@ public class UserPane {
 		middlePane.setContent(contentHolder);
 		
 		pane.setCenter(middlePane);
+		
+	}
+	public void buildInvoice(BorderPane pane){
+		contentHolder.getChildren().removeAll(contentHolder.getChildren());
+		MyEventObject ev = new MyEventObject(this,lP.getUsersName(),this);
+		if(lP.getMyEventListener() != null){
+			lP.getMyEventListener().createInvoice(ev);
+		}
+		Button clear = new Button("Clear Last Entry");
+		VBox vbox = new VBox();
+		vbox.setAlignment(Pos.CENTER);
+		invoiceArea.setPrefSize(298, 348);
+		invoiceArea.setEditable(false);
+		vbox.getChildren().addAll(invoiceArea,clear);
+		
+		clear.setOnAction(event -> {
+			invoiceArea.clear();
+			MyEventObject ev1 = new MyEventObject(this,lP.getUsersName(),this);
+			if(lP.getMyEventListener() != null){
+				lP.getMyEventListener().clearInvoice(ev1);
+			}
+		});
+		
+		contentHolder.getChildren().add(vbox);
+		middlePane.setContent(contentHolder);
+		
+		pane.setCenter(middlePane);
+		
 		
 	}
 	public void fillNodes(String text, String nightclub){
@@ -182,6 +217,9 @@ public class UserPane {
 	}
 	public ScrollPane getMiddlePane() {
 		return middlePane;
+	}
+	public TextArea getInvoiceArea() {
+		return invoiceArea;
 	}
 	
 }

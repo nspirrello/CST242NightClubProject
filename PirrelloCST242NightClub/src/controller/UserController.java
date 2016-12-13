@@ -8,6 +8,7 @@ import model.Nightclub;
 import model.NightclubBag;
 import model.User;
 import model.UserBag;
+import model.UserInvoice;
 import view.ClubNodes;
 import view.LoginPane;
 import view.UserPane;
@@ -16,6 +17,7 @@ import view.UserPane;
  */
 public class UserController {
 	public UserController(LoginPane view, UserBag uB, NightclubBag ncB, ManagerBag mB){
+		ArrayList<Nightclub> unique = new ArrayList<Nightclub>();
 		view.setMyEventListener(new MyEventListener(){
 			
 			@Override
@@ -43,7 +45,7 @@ public class UserController {
 				ArrayList<Nightclub> follow = user.getFollowing();
 				Nightclub[] ncArray = ncB.getNightclubBag();
 				
-				ArrayList<Nightclub> unique = new ArrayList<Nightclub>();
+				
 				for(int m = 0;m < ncB.getnElems();m++){
 					unique.add(ncArray[m]);
 				}
@@ -146,8 +148,45 @@ public class UserController {
 			}
 
 			@Override
-			public void passFollowThrough(MyEventObject myEventObject) {
+			public void passFollowThrough(MyEventObject ev) {
+				//make a user using username passed in
+				//find the nightclub and register it to the user following and o list
+				User user = uB.find(ev.getUsername());
+				Nightclub nc = ncB.find(ev.getNightclub());
+				user.getFollowing().add(nc);
+				user.setToNotify(nc);
+				//send through a up so the object can be removed from the vbox
+				unique.remove(nc);
+			}
+
+			@Override
+			public void passTicket(MyEventObject ev) {
+				//get a nightclub from ev and then find the price, get a user from username and then invoke the buy ticket item
+				Nightclub nc = ncB.find(ev.getNightclub());
+				User user = uB.find(ev.getUsername());
+				int price = nc.getTicketPrice();
+				user.buyTicket(ev.getNightclub(), price, user.getUsername());
+			}
+
+			@Override
+			public void createInvoice(MyEventObject ev) {
+				User user = uB.find(ev.getUsername());
+				UserPane pane = ev.getPane();
 				
+				UserInvoice uI = user.getUserI();
+				pane.getInvoiceArea().setText(uI.printAll());
+			}
+
+			@Override
+			public void clearInvoice(MyEventObject ev) {
+				User user = uB.find(ev.getUsername());
+				UserInvoice uI = user.getUserI();
+				UserPane uP = ev.getPane();
+				for(int i = 0;i < uI.getSize();i++){
+					uI.remove(uI.get(i));
+				}
+				System.out.println(uI.printAll());
+				uP.getInvoiceArea().setText(uI.printAll());
 			}
 
 			
