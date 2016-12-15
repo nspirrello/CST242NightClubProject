@@ -21,6 +21,7 @@ public class CreateLoginPane {
 	Stage stage;
 	LoginPane lP;
 	UserPane uP;
+	ManagerPane mP;
 	private Label clubAddress;
 	private Label clubName;
 	private Label clubZip;
@@ -107,13 +108,15 @@ public class CreateLoginPane {
 		TextField userField = new TextField();
 		TextField passField = new TextField();
 		TextField ncField = new TextField();
+		
 		createNC.setOnAction(event ->{
 			clubName = new Label("Club Name");
-			clubAddress = new Label("Club Address");
+			clubAddress = new Label("Club Address(#+Name)");
 			clubZip = new Label("Zip Code");
 			clubState = new Label("State");
 			numTables = new Label("# of Tables");
 			ticketPrice = new Label("Price of Tickets");
+			
 			nameF = new TextField();
 			addF = new TextField();
 			zipF = new TextField();
@@ -134,21 +137,27 @@ public class CreateLoginPane {
 			HBox hbox4 = new HBox(15);
 			hbox4.setAlignment(Pos.CENTER);
 			hbox4.getChildren().addAll(ticketPrice,ticketF);
+			HBox hbox5 = new HBox(15);
+			hbox5.setAlignment(Pos.CENTER);
+			hbox5.getChildren().addAll(clubZip,zipF);
+			HBox hbox6 = new HBox(15);
+			hbox6.setAlignment(Pos.CENTER);
+			hbox6.getChildren().addAll(clubState,stateF);
 			VBox vbox = new VBox(15);
-			vbox.getChildren().addAll(hbox1,hbox2,hbox3,hbox4,confirm);
+			vbox.getChildren().addAll(hbox1,hbox2,hbox3,hbox4,hbox5,hbox6,confirm);
 			
 			Stage stage = new Stage();
 			stage.setScene(new Scene(vbox,300,400));
 			stage.show();
 			
 			confirm.setOnAction(event2 -> {
-				String address = clubAddress.getText();
+				String address = addF.getText();
 				int split = address.indexOf(" ");
 				String clubNum = address.substring(0, split);
 				String clubSt = address.substring(split+1);
 				Address ad = new Address(clubNum,clubSt,zipF.getText(),stateF.getText());
 				nc = new Nightclub(nameF.getText(),ad,Integer.parseInt(tablesF.getText()),Integer.parseInt(ticketF.getText()));
-				ncField.setText(ad.toString());
+				ncField.setText(nameF.getText());
 				stage.close();
 			});
 			
@@ -161,7 +170,9 @@ public class CreateLoginPane {
 			if(lP.getMyEventListener() != null){
 				lP.getMyEventListener().createAManager(ev);
 			}
-			
+			lP.setUsersName(userField.getText());
+			mP = new ManagerPane(stage,lP);
+			mP.setcLP(this);
 		});
 		managerCancel.setOnAction(event -> {
 			lP.buildLoginPane();
@@ -210,6 +221,12 @@ public class CreateLoginPane {
 	}
 	public void setCreateNC(Button createNC) {
 		this.createNC = createNC;
+	}
+	public Nightclub getNc() {
+		return nc;
+	}
+	public void setNc(Nightclub nc) {
+		this.nc = nc;
 	}
 	
 	

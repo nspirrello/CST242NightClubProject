@@ -23,6 +23,14 @@ public class ManagerBag {
 		}
 		return null;
 	}
+	public boolean isIn(String username){
+		for(int i = 0;i < nElems;i++){
+			if(managerBag[i].getUsername().equals(username)){
+				return true;
+			}
+		}
+		return false;
+	}
 	public boolean correctLogin(String username,String password){
 		for(int i = 0;i < nElems;i++){
 			if(managerBag[i].getUsername().equals(username) && managerBag[i].getPassword().equals(password)){

@@ -20,6 +20,7 @@ public class LoginPane {
 	ComfirmTypeLogin cTL = new ComfirmTypeLogin();
 	Stage stage;
 	UserPane uP;
+	ManagerPane mP;
 	MyEventListener myEventListener;
 	public LoginPane(Stage stage){
 		this.stage = stage;
@@ -114,6 +115,14 @@ public class LoginPane {
 
 	public void setuP(UserPane uP) {
 		this.uP = uP;
+	}
+
+	public ManagerPane getmP() {
+		return mP;
+	}
+
+	public void setmP(ManagerPane mP) {
+		this.mP = mP;
 	}
 	
 

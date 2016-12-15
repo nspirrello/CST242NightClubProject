@@ -16,4 +16,7 @@ public interface MyEventListener extends EventListener{
 	public void passTicket(MyEventObject myEventObject);
 	public void createInvoice(MyEventObject myEventObject);
 	public void clearInvoice(MyEventObject myEventObject);
+	public void updateManager(MyEventObject myEventObject);
+	public void fillManager(MyEventObject myEventObject);
+	
 }

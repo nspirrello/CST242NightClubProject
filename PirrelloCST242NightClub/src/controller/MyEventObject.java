@@ -2,9 +2,9 @@ package controller;
 
 import java.util.EventObject;
 
-import javafx.scene.control.TextArea;
 import model.Nightclub;
 import view.ClubNodes;
+import view.ManagerPane;
 import view.UserPane;
 
 public class MyEventObject extends EventObject{
@@ -18,9 +18,20 @@ public class MyEventObject extends EventObject{
 	private ClubNodes clubNode;
 	private Nightclub nc;
 	private String phone;
-	
+	private ManagerPane mP;
 	public MyEventObject(Object source) {
 		super(source);
+	}
+	public MyEventObject(String name, String phone, String username, String password, String nc , String oldName,Nightclub ncc,ManagerPane mP, Object source){
+		super(source);
+		this.name = name;
+		this.phone = phone;
+		this.username = username;
+		this.password = password;
+		this.nightclub = nc;
+		this.mP = mP;
+		this.oldName = oldName;
+		this.nc = ncc;
 	}
 	public MyEventObject(Object source, String nc, ClubNodes clubNode){
 		super(source);
@@ -70,6 +81,11 @@ public class MyEventObject extends EventObject{
 	public MyEventObject(Object source,UserPane uP, String username){
 		super(source);
 		this.pane = uP;
+		this.username = username;
+	}
+	public MyEventObject(Object source, String username, ManagerPane mP){
+		super(source);
+		this.mP = mP;
 		this.username = username;
 	}
 	public MyEventObject(Object source,UserPane uP, String username, String nightclub){
@@ -134,6 +150,12 @@ public class MyEventObject extends EventObject{
 	}
 	public void setClubNode(ClubNodes clubNode) {
 		this.clubNode = clubNode;
+	}
+	public ManagerPane getmP() {
+		return mP;
+	}
+	public void setmP(ManagerPane mP) {
+		this.mP = mP;
 	}
 	
 }

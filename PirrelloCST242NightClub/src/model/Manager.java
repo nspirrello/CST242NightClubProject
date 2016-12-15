@@ -29,5 +29,11 @@ public class Manager extends Login{
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
+	@Override
+	public String toString() {
+		return "Manager [nightClub=" + nightClub + ", name=" + name + ", phoneNumber=" + phoneNumber
+				+ ", getUsername()=" + getUsername() + ", getPassword()=" + getPassword() + "]";
+	}
+	
 	
 }

@@ -2,6 +2,7 @@ package controller;
 
 import java.util.ArrayList;
 
+import model.Address;
 import model.Manager;
 import model.ManagerBag;
 import model.Nightclub;
@@ -11,6 +12,7 @@ import model.UserBag;
 import model.UserInvoice;
 import view.ClubNodes;
 import view.LoginPane;
+import view.ManagerPane;
 import view.UserPane;
 /*
  * for transferring the following list, just make it so when you go to myClubs
@@ -109,27 +111,26 @@ public class UserController {
 
 			@Override
 			public void confirmLogin(MyEventObject ev) {
-//				System.out.println(ev.getUsername());
-//				System.out.println(uB.find(ev.getUsername()));
-				uB.display();
+
+
 				String username = ev.getUsername();
 				String password = ev.getPassword();
-				String className = uB.find(username).getClass().getSimpleName();
-				if(className.equals("User")){
+				
+				if(uB.isIn(username)){
 					if(uB.correctLogin(username,password)){
 						view.setUsersName(username);
 						view.setuP(new UserPane(view.getStage(),view));
 					}else{
 						//make an alert saying wrong username/password combination
 					}
-					
-				} else if(className.equals("Manager")){
+				}else if(mB.isIn(username)){
+					System.out.println(mB.isIn(username));
 					if(mB.correctLogin(username, password)){
 						//create the managerPane
+						view.setUsersName(username);
+						view.setmP(new ManagerPane(view.getStage(),view));
 					}
-				}
-					
-				
+				}	
 			}
 
 			@Override
@@ -187,6 +188,47 @@ public class UserController {
 				}
 				System.out.println(uI.printAll());
 				uP.getInvoiceArea().setText(uI.printAll());
+			}
+
+			@Override
+			public void updateManager(MyEventObject ev) {
+				Nightclub nc = ncB.find(ev.getNc().getClubName());
+				ManagerPane mP = ev.getmP();
+				nc.setClubName(mP.getNameF().getText());
+				String add = mP.getAddF().getText();
+				int split = add.indexOf(" ");
+				String num = add.substring(0, split);
+				String addSt = add.substring(split+1);
+				Address newAdd = new Address(num,addSt,mP.getZipF().getText(),mP.getStateF().getText());
+				nc.setClubAddress(newAdd);
+				nc.setNumOfTables(Integer.parseInt(mP.getTablesF().getText()));
+				nc.setTicketPrice(Integer.parseInt(mP.getTicketF().getText()));
+				
+				Manager manager = mB.find(ev.getOldName());
+				manager.setName(ev.getName());
+				manager.setPassword(ev.getPassword());
+				manager.setPhoneNumber(ev.getPhone());
+				manager.setUsername(ev.getUsername());
+				
+			}
+
+			@Override
+			public void fillManager(MyEventObject ev) {
+				ManagerPane mP = ev.getmP();
+				Manager manager = mB.find(ev.getUsername());
+				Nightclub nc = ncB.find(manager.getNightClub().getClubName());
+				//nightclub
+				mP.getAddF().setText(nc.getStNum() + " " + nc.getStName());
+				mP.getNameF().setText(nc.getClubName());
+				mP.getStateF().setText(nc.getState());
+				mP.getZipF().setText(nc.getZip());
+				mP.getTablesF().setText(nc.getNumOfTables()+"");
+				mP.getTicketF().setText(nc.getTicketPrice()+"");
+				//manager
+				mP.getNameField().setText(manager.getName());
+				mP.getPhoneField().setText(manager.getPhoneNumber());
+				mP.getUserField().setText(manager.getUsername());
+				mP.getPassField().setText(manager.getPassword());
 			}
 
 			

@@ -23,6 +23,14 @@ public class UserBag {
 		}
 		return null;
 	}
+	public boolean isIn(String username){
+		for(int i = 0;i < nElems;i++){
+			if(userBag[i].getUsername().equals(username)){
+				return true;
+			}
+		}
+		return false;
+	}
 	public boolean correctLogin(String username,String password){
 		for(int i = 0;i < nElems;i++){
 			if(userBag[i].getUsername().equals(username) && userBag[i].getPassword().equals(password)){

@@ -25,6 +25,18 @@ public class Nightclub extends Observable{
 	public Address getClubAddress() {
 		return clubAddress;
 	}
+	public String getStNum(){
+		return clubAddress.getAddNum();
+	}
+	public String getStName(){
+		return clubAddress.getAddName();
+	}
+	public String getZip(){
+		return clubAddress.getZipCode();
+	}
+	public String getState(){
+		return clubAddress.getState();
+	}
 	public void setClubAddress(Address clubAddress) {
 		this.clubAddress = clubAddress;
 	}

@@ -4,6 +4,7 @@ import controller.UserController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import model.Address;
+import model.Manager;
 import model.ManagerBag;
 import model.Nightclub;
 import model.NightclubBag;
@@ -31,12 +32,13 @@ public class Demo extends Application{
 		
 		LoginPane lP = new LoginPane(primaryStage);
 		lP.buildLoginPane();
-		lB.display();
+
 		UserController uC = new UserController(lP,lB,ncB,mB);
 		
 		
 		
 //		UserPane uP = new UserPane(primaryStage);
+
 	}
 
 }
